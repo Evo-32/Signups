@@ -8,11 +8,13 @@ const Forgotpassword = () => {
     const handleResetPassword = (e) => {
         e.preventDefault();
 
+        // Check if email contains '@'
         if (!email.includes("@")) {
             setError("Please enter a valid email address.");
             return;
         }
-        setError("");
+
+        setError(""); 
     };
 
     return (
@@ -32,16 +34,15 @@ const Forgotpassword = () => {
                         />
                     </div>
 
+                    {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+
                     <button
                         type="submit"
                         className="block w-full rounded-lg bg-blue-300 px-5 py-3 text-sm font-medium text-white"
                     >
-                        <Link to="/setnew" className="text-gray-700 underline">
-                Next
-              </Link>
+                        Next
                     </button>
                 </form>
-
             </div>
         </div>
     );
