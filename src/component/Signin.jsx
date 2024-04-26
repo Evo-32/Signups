@@ -55,7 +55,7 @@ const Signin = () => {
                     <div className="relative">
                         <input
                             type="email"
-                            className="bg-pink-100 w-full rounded-lg border-gray-200 p-4 text-blue-400 pe-12 text-sm shadow-sm"
+                            className="bg-pink-100 w-full rounded-lg border-gray-200 p-4 text-black-400 pe-12 text-sm shadow-sm"
                             placeholder="Email"
                             value={email}
                             onChange={handleEmailChange}

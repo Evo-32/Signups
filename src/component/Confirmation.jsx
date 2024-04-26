@@ -7,22 +7,20 @@ const Confirmation = () => {
     const handleConfirmation = (e) => {
         e.preventDefault();
 
-        // Simulate validation logic
+
         if (confirmationCode.trim() === '') {
             setError("Please enter the confirmation code.");
             return;
         }
 
-        // Proceed with confirmation logic (e.g., API call to verify the code)
-
-        // Clear error if validation passes
+   
         setError("");
-        // Proceed with confirmation logic
+      
     };
 
     const handleConfirmationCodeChange = (e) => {
         setConfirmationCode(e.target.value);
-        setError(""); // Clear error when user starts typing in the confirmation code field
+        setError("");
     };
 
     return (
@@ -41,19 +39,42 @@ const Confirmation = () => {
     </p>
 
     <div className="grid grid-cols-4 gap-2 mt-4">
-        {/* Create four input fields, each for one digit */}
-        {[1, 2, 3, 4].map((index) => (
-            <div key={index} className="relative">
+            <div  className="relative">
                 <input
                     type="text"
-                    maxLength={1} // Limit the input to one character
+                    maxLength={1} 
                     className="bg-pink-100 w-full rounded-lg border-gray-200 p-4 text-blue-400 text-center text-sm shadow-sm"
                     placeholder=""
-                    value={confirmationCode[index - 1] || ''}
-                    onChange={(e) => handleConfirmationCodeChange(e, index - 1)}
+                    onChange={(e) => handleConfirmationCodeChange(e)}
                 />
             </div>
-        ))}
+            <div  className="relative">
+                <input
+                    type="text"
+                    maxLength={1} 
+                    className="bg-pink-100 w-full rounded-lg border-gray-200 p-4 text-blue-400 text-center text-sm shadow-sm"
+                    placeholder=""
+                    onChange={(e) => handleConfirmationCodeChange(e)}
+                />
+            </div>
+            <div  className="relative">
+                <input
+                    type="text"
+                    maxLength={1} 
+                    className="bg-pink-100 w-full rounded-lg border-gray-200 p-4 text-blue-400 text-center text-sm shadow-sm"
+                    placeholder=""
+                    onChange={(e) => handleConfirmationCodeChange(e)}
+                />
+            </div>
+            <div  className="relative">
+                <input
+                    type="text"
+                    maxLength={1} 
+                    className="bg-pink-100 w-full rounded-lg border-gray-200 p-4 text-blue-400 text-center text-sm shadow-sm"
+                    placeholder=""
+                    onChange={(e) => handleConfirmationCodeChange(e)}
+                />
+            </div>
     </div>
 
     {error && <p className="text-red-500 text-center mt-4">{error}</p>}
