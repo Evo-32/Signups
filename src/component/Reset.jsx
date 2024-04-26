@@ -4,20 +4,43 @@ import { Link } from 'react-router-dom';
 const Reset = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
+    const [errorNewPassword, setErrorNewPassword] = useState('');
+    const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
 
     const handleResetPassword = (e) => {
         e.preventDefault();
 
+        if (newPassword.length === 0 || confirmPassword.length === 0) {
+            setErrorNewPassword('Please fill in both password fields.');
+            setErrorConfirmPassword('');
+            return;
+        }
         if (newPassword.length < 7) {
-            setError("New password must be at least 7 characters long.");
+            setErrorNewPassword('New password must be at least 7 characters long.');
+            setErrorConfirmPassword('');
             return;
         }
         if (newPassword !== confirmPassword) {
-            setError("Passwords do not match.");
+            setErrorConfirmPassword('Passwords do not match.');
+            setErrorNewPassword('');
             return;
         }
-        setError("");
+        setErrorNewPassword('');
+        setErrorConfirmPassword('');
+    };
+
+    const handleNewPasswordChange = (e) => {
+        setNewPassword(e.target.value);
+        if (e.target.value.length > 0) {
+            setErrorNewPassword('');
+        }
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
+        if (e.target.value.length > 0) {
+            setErrorConfirmPassword('');
+        }
     };
 
     return (
@@ -36,29 +59,29 @@ const Reset = () => {
                         <input
                             type="password"
                             value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
+                            onChange={handleNewPasswordChange}
                             className="bg-pink-100 w-full rounded-lg border-gray-200 p-4 pe-12 text-sm text-blue-400 shadow-sm"
                             placeholder="New Password"
                         />
+                        {errorNewPassword && <p className="text-red-500 text-center mt-1">{errorNewPassword}</p>}
                     </div>
 
                     <div className="relative">
                         <input
                             type="password"
                             value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            onChange={handleConfirmPasswordChange}
                             className="bg-pink-100 w-full rounded-lg border-gray-200 p-4 pe-12 text-sm text-blue-400 shadow-sm"
                             placeholder="Confirm Password"
                         />
+                        {errorConfirmPassword && <p className="text-red-500 text-center mt-1">{errorConfirmPassword}</p>}
                     </div>
-
-                    {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
                     <button
                         type="submit"
                         className="block w-full rounded-lg bg-blue-300 px-5 py-3 text-sm font-medium text-white"
                     >
-                        Reset
+                        <Link to="/confirm">Reset</Link>
                     </button>
                 </form>
             </div>

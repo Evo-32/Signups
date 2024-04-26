@@ -11,19 +11,30 @@ const Signup = () => {
 
   const handleSignup = (e) => {
     e.preventDefault();
+
+    setError("");
+
+    if (!fullName.trim() || !lastName.trim() || !email.trim() || !password.trim() || !passwordConfirmation.trim()) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
     if (!email.includes("@gmail.com")) {
       setError("Email must be a valid Gmail address.");
       return;
     }
+
     if (password.length < 7) {
       setError("Password must be at least 7 characters long.");
       return;
     }
+
     if (password !== passwordConfirmation) {
       setError("Passwords do not match.");
       return;
     }
-    setError(""); 
+
+    console.log("Signup successful!");
   };
 
   return (
@@ -40,12 +51,12 @@ const Signup = () => {
             >
               First Name
             </label>
-
             <input
               type="text"
               id="FirstName"
               name="first_name"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={fullName}
               onChange={(e) => setFullName(e.target.value)}
             />
           </div>
@@ -57,12 +68,12 @@ const Signup = () => {
             >
               Last Name
             </label>
-
             <input
               type="text"
               id="LastName"
               name="last_name"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
@@ -72,15 +83,14 @@ const Signup = () => {
               htmlFor="Email"
               className="block text-sm font-medium text-gray-700"
             >
-              {" "}
-              Email{" "}
+              Email
             </label>
-
             <input
               type="email"
               id="Email"
               name="email"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -90,15 +100,14 @@ const Signup = () => {
               htmlFor="Password"
               className="block text-sm font-medium text-gray-700"
             >
-              {" "}
-              Password{" "}
+              Password
             </label>
-
             <input
               type="password"
               id="Password"
               name="password"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -110,27 +119,26 @@ const Signup = () => {
             >
               Password Confirmation
             </label>
-
             <input
               type="password"
               id="PasswordConfirmation"
               name="password_confirmation"
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              onChange={(e) => setPassword(e.target.value)}
+              value={passwordConfirmation}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
-            {error && <p className="text-red-500">{error}</p>}
           </div>
-           
+
+          {error && <p className="col-span-6 text-red-500 text-sm">{error}</p>}
 
           <div className="col-span-6">
-            <label htmlFor="MarketingAccept" className="flex gap-4">
+            <label htmlFor="MarketingAccept" className="flex gap-4 items-center">
               <input
                 type="checkbox"
                 id="MarketingAccept"
                 name="marketing_accept"
-                className="size-5 rounded-md border-gray-200 bg-white shadow-sm"
+                className="rounded-md border-gray-200 bg-white shadow-sm"
               />
-
               <span className="text-sm text-gray-700">
                 I want to receive emails about events.
               </span>
@@ -138,12 +146,14 @@ const Signup = () => {
           </div>
 
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <button className="inline-block shrink-0 rounded-md  bg-blue-400 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
+            <button
+              type="submit"
+              className="inline-block rounded-md bg-blue-400 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+            >
               Create an account
             </button>
-
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-              Already have an account?
+              Already have an account?{" "}
               <Link to="/" className="text-gray-700 underline">
                 Log in
               </Link>
